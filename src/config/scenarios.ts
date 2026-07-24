@@ -11,12 +11,6 @@ export const breakEvenModels = {
     averageCheck: 300000,
     revenue: 4200000,
   },
-  mixed: {
-    clients: 12,
-    mainRevenue: 3600000,
-    additionalRevenue: 450000,
-    totalRevenue: 4050000,
-  },
 } as const;
 
 export const launchPlan = [

@@ -2,7 +2,6 @@ import type { InvestorInputs, ProjectionMonth } from "@/types";
 
 export type MonthlyFinance = {
   mainRevenue: number;
-  additionalRevenue: number;
   totalRevenue: number;
   profitBeforeTax: number;
   tax: number;
@@ -14,8 +13,7 @@ export type MonthlyFinance = {
 
 export function calculateMonth(inputs: InvestorInputs, clients = inputs.clients): MonthlyFinance {
   const mainRevenue = clients * inputs.averageCheck;
-  const additionalRevenue = inputs.additionalOrders * inputs.additionalAverageCheck;
-  const totalRevenue = mainRevenue + additionalRevenue;
+  const totalRevenue = mainRevenue;
   const profitBeforeTax = totalRevenue - inputs.monthlyExpenses;
   const tax = Math.max(0, profitBeforeTax) * (inputs.taxRate / 100);
   const netProfit = profitBeforeTax - tax;
@@ -25,7 +23,6 @@ export function calculateMonth(inputs: InvestorInputs, clients = inputs.clients)
 
   return {
     mainRevenue,
-    additionalRevenue,
     totalRevenue,
     profitBeforeTax,
     tax,
@@ -65,8 +62,7 @@ export function findPaybackMonth(projection: ProjectionMonth[], investment: numb
 export function calculateBreakEvenClients(
   monthlyExpenses: number,
   averageCheck: number,
-  additionalRevenue = 0,
 ): number {
   if (averageCheck <= 0) return 0;
-  return Math.max(0, Math.ceil((monthlyExpenses - additionalRevenue) / averageCheck));
+  return Math.max(0, Math.ceil(monthlyExpenses / averageCheck));
 }

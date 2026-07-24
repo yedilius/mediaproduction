@@ -10,8 +10,6 @@ export const defaultInvestorInputs: InvestorInputs = {
   investment: 10000000,
   clients: 14,
   averageCheck: 300000,
-  additionalOrders: 3,
-  additionalAverageCheck: 150000,
   monthlyExpenses: 4050000,
   taxRate: 10,
   reserve: 300000,
@@ -21,4 +19,4 @@ export const defaultInvestorInputs: InvestorInputs = {
 };
 
 export const financeDisclaimer =
-  "Сценарный расчет не является гарантией доходности или окупаемости. Фактический результат зависит от продаж, расходов, налогового режима и операционного исполнения.";
+  "Сценарный расчет основан только на основном пакете и не является гарантией доходности или окупаемости. Фактический результат зависит от продаж, расходов, налогового режима и операционного исполнения.";

@@ -43,8 +43,6 @@ export type InvestorInputs = {
   investment: number;
   clients: number;
   averageCheck: number;
-  additionalOrders: number;
-  additionalAverageCheck: number;
   monthlyExpenses: number;
   taxRate: number;
   reserve: number;

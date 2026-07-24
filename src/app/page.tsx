@@ -171,16 +171,10 @@ export default function HomePage() {
           </Reveal>
           <div className="model-grid">
             <Reveal className="model-card">
-              <span>Базовая модель</span>
-              <div className="formula"><strong>{breakEvenModels.base.clients}</strong><i>×</i><strong>{formatCurrency(breakEvenModels.base.averageCheck)}</strong></div>
+              <span>Расчет только по основному пакету</span>
+              <div className="formula"><strong>{breakEvenModels.base.clients}</strong><i>×</i><strong>{formatCurrency(breakEvenModels.base.averageCheck)}</strong><i>=</i><strong>{formatCurrency(breakEvenModels.base.revenue)}</strong></div>
               <p>Клиентов × средний чек</p>
-              <div className="model-total"><span>Выручка</span><b>{formatCurrency(breakEvenModels.base.revenue)}</b></div>
-            </Reveal>
-            <Reveal className="model-card">
-              <span>Смешанная модель</span>
-              <div className="formula"><strong>{breakEvenModels.mixed.clients}</strong><i>+</i><strong>{formatCurrency(breakEvenModels.mixed.additionalRevenue)}</strong></div>
-              <p>Клиентов + дополнительные услуги</p>
-              <div className="model-total"><span>Выручка</span><b>{formatCurrency(breakEvenModels.mixed.totalRevenue)}</b></div>
+              <div className="model-total"><span>Ежемесячные расходы</span><b>{formatCurrency(breakEvenModels.base.expenses)}</b></div>
             </Reveal>
           </div>
           <div className="timeline">
@@ -222,7 +216,7 @@ export default function HomePage() {
           <Reveal className="section-intro">
             <span className="eyebrow">05 · Интерактивный калькулятор</span>
             <h2>Инвестор получает долю только от чистой распределяемой прибыли.</h2>
-            <p>Измените параметры, чтобы оценить чувствительность модели. Процент от выручки не используется.</p>
+            <p>Расчет использует только основной пакет 300 000 ₸. Дополнительные услуги в прогноз не включаются, процент от выручки не используется.</p>
           </Reveal>
           <InvestorCalculator />
         </section>

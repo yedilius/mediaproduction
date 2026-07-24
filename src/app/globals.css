@@ -403,7 +403,7 @@ main > section { position: relative; z-index: 1; }
 .additional-row article:last-child { border: 0; }
 .additional-row span { color: var(--muted); }
 
-.model-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.model-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
 .model-card { padding: 38px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
 .model-card > span { color: var(--muted); font: 600 11px/1 var(--font-mono), monospace; text-transform: uppercase; }
 .formula { margin: 50px 0 12px; display: flex; align-items: center; gap: 18px; }
@@ -485,9 +485,9 @@ main > section { position: relative; z-index: 1; }
 .operation-card li svg { flex: 0 0 auto; color: var(--accent); }
 
 .risk-layout { display: grid; grid-template-columns: 1.35fr .65fr; gap: 16px; }
-.risk-matrix { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.risk-matrix { display: grid; grid-template-columns: repeat(2, 1fr); align-content: start; gap: 8px; }
 .matrix-axis { grid-column: 1 / -1; padding: 10px; color: var(--muted); text-align: center; font: 500 10px/1 var(--font-mono), monospace; text-transform: uppercase; }
-.risk-cell { min-height: 160px; padding: 12px; display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); }
+.risk-cell { min-height: 0; padding: 14px; display: flex; flex-direction: column; gap: 7px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); }
 .risk-cell > span { margin-bottom: 6px; color: #687068; font: 500 9px/1 var(--font-mono), monospace; text-transform: uppercase; }
 .risk-cell button { padding: 8px; border: 1px solid rgba(255,255,255,.06); border-radius: 9px; background: rgba(255,255,255,.035); cursor: pointer; font-size: 11px; text-align: left; }
 .risk-cell button:hover, .risk-cell button.active { color: var(--bg); background: var(--accent); }

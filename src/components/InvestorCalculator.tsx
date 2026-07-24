@@ -14,8 +14,6 @@ const schema = z.object({
   investment: z.number().min(0),
   clients: z.number().int().min(0),
   averageCheck: z.number().min(1),
-  additionalOrders: z.number().int().min(0),
-  additionalAverageCheck: z.number().min(0),
   monthlyExpenses: z.number().min(0),
   taxRate: z.number().min(0).max(100),
   reserve: z.number().min(0),
@@ -30,8 +28,6 @@ const fields: Array<{ name: keyof FormData; label: string; suffix?: string }> = 
   { name: "investment", label: "Сумма инвестиций", suffix: "₸" },
   { name: "clients", label: "Количество клиентов" },
   { name: "averageCheck", label: "Средний чек", suffix: "₸" },
-  { name: "additionalOrders", label: "Дополнительные заказы" },
-  { name: "additionalAverageCheck", label: "Средний чек доп. заказа", suffix: "₸" },
   { name: "monthlyExpenses", label: "Ежемесячные расходы", suffix: "₸" },
   { name: "taxRate", label: "Налоговая нагрузка", suffix: "%" },
   { name: "reserve", label: "Обязательный резерв", suffix: "₸" },
@@ -52,7 +48,6 @@ export function InvestorCalculator() {
   const breakEven = calculateBreakEvenClients(
     inputs.monthlyExpenses,
     inputs.averageCheck,
-    inputs.additionalOrders * inputs.additionalAverageCheck,
   );
 
   const results = [
