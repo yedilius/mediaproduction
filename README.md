@@ -1,55 +1,49 @@
-# Портфолио Айым
+# Media Production
 
-Современный frontend-проект для SMM-портфолио: React, Vite, TypeScript, CSS Modules, адаптивная верстка, ленивые изображения, видео-карточки и Docker.
+Премиальная инвестиционная платформа Media Production, адаптированная из существующего портфолио с сохранением реальных кейсов, изображений и видео.
 
-## Локальный запуск без Docker
+## Стек
+
+- Next.js App Router
+- React + TypeScript
+- CSS design tokens and responsive layout
+- Motion
+- Recharts
+- React Hook Form + Zod
+- Vitest
+- Lucide Icons
+
+## Локальная разработка
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Сайт откроется на `http://localhost:5173`.
+Приложение откроется на `http://localhost:3000`.
 
-## Запуск через Docker
-
-```bash
-docker compose up --build
-```
-
-Docker поднимет production-сборку на `http://localhost:5173`.
-
-## Production build
+## Проверка качества
 
 ```bash
+npm run lint
+npm run typecheck
+npm run test
 npm run build
-npm run preview
 ```
 
-Preview по умолчанию доступен на `http://localhost:4173`.
+Все четыре проверки обязательны перед push в `main`.
 
-## Deploy
+## Маршруты
 
-Рекомендуемый бесплатный деплой: Vercel.
+- `/` — публичная инвестиционная платформа и портфолио.
+- `/investor-room` — безопасная mock-основа будущей private data room.
 
-Настройки проекта:
+## Данные
 
-```text
-Framework Preset: Vite
-Install Command: npm install
-Build Command: npm run build
-Output Directory: dist
-```
+Контент и значения находятся в `src/config`. Финансовые расчёты реализованы в `src/lib/finance.ts`, тесты — в `src/lib/finance.test.ts`.
 
-Также добавлены `vercel.json` и `netlify.toml`, поэтому проект готов и для Vercel, и для Netlify.
+Реальные материалы портфолио находятся в `public/assets`. Не удаляйте и не переименовывайте их без проверки всех ссылок.
 
-## Где менять данные
+## Investor Room
 
-Основной контент вынесен в `src/data`:
-
-- `portfolioData.ts` — профиль, hero, about, опыт, оборудование, примеры постов и видео.
-- `projects.ts` — кейсы.
-- `niches.ts` — ниши.
-- `services.ts` — форматы разовых съемок.
-
-Медиа лежат в `public/assets/images` и `public/assets/videos`. Для новых файлов добавляйте путь через helpers из `src/utils/assetHelpers.ts`.
+Текущая версия не содержит frontend-пароля и не публикует конфиденциальные документы. Для production-доступа необходимо отдельно подключить server-side authentication, разграничение ролей, защищённое хранилище и audit log.

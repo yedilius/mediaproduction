@@ -1,7 +1,67 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "src/app/**/*.ts",
+    "src/app/**/*.tsx",
+    "src/components/**/*.ts",
+    "src/components/**/*.tsx",
+    "src/config/**/*.ts",
+    "src/data/**/*.ts",
+    "src/features/**/*.ts",
+    "src/features/**/*.tsx",
+    "src/lib/**/*.ts",
+    "src/types/**/*.ts",
+    "vitest.config.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/main.tsx",
+    "src/app/App.tsx",
+    "src/components/About/**",
+    "src/components/Contact/**",
+    "src/components/Equipment/**",
+    "src/components/Experience/**",
+    "src/components/Footer/**",
+    "src/components/Header/**",
+    "src/components/Hero/**",
+    "src/components/Niches/**",
+    "src/components/Projects/**",
+    "src/components/Services/**",
+    "src/components/Stories/**",
+    "src/components/UI/**",
+    "src/data/**",
+    "src/hooks/**",
+    "src/utils/**"
   ]
 }

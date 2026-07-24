@@ -1,5 +1,9 @@
 node_modules
 dist
+.next
+.vercel
+.env
+.env.*
 .git
 .DS_Store
 npm-debug.log
