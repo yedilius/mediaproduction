@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { FinanceDashboard } from "@/components/FinanceDashboard";
 import { BeforeAfter } from "@/components/BeforeAfter";
-import { FounderPortrait } from "@/components/FounderPortrait";
 import { InvestorCalculator } from "@/components/InvestorCalculator";
 import { ClickSpark } from "@/components/effects/ClickSpark";
 import { LightRays } from "@/components/effects/LightRays";
@@ -228,33 +227,9 @@ export default function HomePage() {
           <InvestorCalculator />
         </section>
 
-        <section className="section-shell brand-section">
-          <Reveal className="brand-panel">
-            <div className="brand-main">
-              <div>
-                <span className="eyebrow">06 · Growth engine</span>
-                <h2>Личный бренд как двигатель роста.</h2>
-                <p>Экспертный контент показывает кейсы, процессы команды, результаты клиентов, маркетинг, технологии, IT и автоматизацию.</p>
-              </div>
-              <div className="founder-note">
-                <h3>{siteConfig.role}</h3>
-                <p>{siteConfig.roleDescription}</p>
-              </div>
-              <div className="brand-outcomes">
-                {["Органические заявки", "Доверие", "Снижение зависимости от рекламы", "Повышение среднего чека", "Партнерства", "Более крупные клиенты"].map((item) => <span key={item}>{item}</span>)}
-              </div>
-              <div className="check-trajectory">
-                <small>Стратегический потенциал среднего чека — не гарантия</small>
-                <div><strong>300 000 ₸</strong><ArrowRight /><strong>350–400 тыс. ₸</strong><ArrowRight /><strong>450–700 тыс. ₸</strong></div>
-              </div>
-            </div>
-            <FounderPortrait />
-          </Reveal>
-        </section>
-
         <section className="section-shell roadmap-section">
           <Reveal className="section-intro">
-            <span className="eyebrow">07 · Развитие в IT и AI</span>
+            <span className="eyebrow">06 · Развитие в IT и AI</span>
             <h2>От производства контента — к системе привлечения и обработки клиентов.</h2>
           </Reveal>
           <div className="roadmap">
@@ -274,7 +249,7 @@ export default function HomePage() {
 
         <section className="section-shell operations-section">
           <Reveal className="section-intro inline-intro">
-            <div><span className="eyebrow">08 · Операционная система</span><h2>Бизнес не зависит от одного человека.</h2></div>
+            <div><span className="eyebrow">07 · Операционная система</span><h2>Бизнес не зависит от одного человека.</h2></div>
             <p>Роли, стандарты и контрольные точки превращают expertise в воспроизводимый процесс без почасового тайминга съёмочного дня.</p>
           </Reveal>
           <div className="operations-grid">
@@ -289,7 +264,7 @@ export default function HomePage() {
 
         <section className="section-shell risks-section">
           <Reveal className="section-intro">
-            <span className="eyebrow">09 · Управление рисками</span>
+            <span className="eyebrow">08 · Управление рисками</span>
             <h2>Риск становится управляемым, когда у него есть сигнал и ответственный.</h2>
           </Reveal>
           <RiskMatrix />
@@ -297,7 +272,7 @@ export default function HomePage() {
 
         <section className="section-shell transformation-section">
           <Reveal className="section-intro">
-            <span className="eyebrow">10 · До / После</span>
+            <span className="eyebrow">09 · До / После</span>
             <h2>Из набора публикаций — в измеримую marketing system.</h2>
           </Reveal>
           <BeforeAfter />
@@ -306,7 +281,7 @@ export default function HomePage() {
 
         <section className="section-shell portfolio-section" id="portfolio">
           <Reveal className="section-intro inline-intro">
-            <div><span className="eyebrow">11 · Реальные работы</span><h2>Портфолио, которое уже существует.</h2></div>
+            <div><span className="eyebrow">10 · Реальные работы</span><h2>Портфолио, которое уже существует.</h2></div>
             <p>Сохранены реальные материалы исходного сайта. Результаты не выдуманы: недостающие метрики отмечены как данные для последующего добавления.</p>
           </Reveal>
           <PortfolioGrid />
@@ -314,7 +289,7 @@ export default function HomePage() {
 
         <section className="section-shell investor-cta">
           <Reveal className="investor-panel">
-            <div><span className="eyebrow">12 · Investor Room</span><h2>Структура для due diligence — без публикации конфиденциальных файлов.</h2></div>
+            <div><span className="eyebrow">11 · Investor Room</span><h2>Структура для due diligence — без публикации конфиденциальных файлов.</h2></div>
             <ClickSpark>
               <Link className="button button-primary" href="/investor-room">Открыть Investor Room <ShieldCheck size={18} /></Link>
             </ClickSpark>

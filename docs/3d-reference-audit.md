@@ -18,7 +18,7 @@ No OHZI source code or branded assets were copied. The production implementation
 
 ## Resulting implementation
 
-`src/components/MediaSystemScene.tsx` and `src/components/webgl/sceneStates.ts` provide one scroll-driven interactive scene with five business states:
+`src/components/MediaSystemScene.tsx` and `src/components/webgl/sceneStates.ts` provide one scroll-driven interactive scene with four business states:
 
 - Three.js is loaded asynchronously after client hydration.
 - Device pixel ratio is capped at 1.5 on desktop and 1.0 on mobile.
@@ -27,6 +27,6 @@ No OHZI source code or branded assets were copied. The production implementation
 - `prefers-reduced-motion` renders a static frame.
 - Data Saver and low-memory devices receive the CSS fallback.
 - Pointer input is normalized across mouse and touch-capable pointer events.
-- Scroll state switches between content production, pipeline, finance, personal brand and IT/AI automation.
+- Scroll state switches between content production, pipeline, finance and IT/AI automation.
 - All geometries, materials, observers and the WebGL context are disposed on unmount.
 - No external GLB, texture, shader or OHZI runtime is shipped.

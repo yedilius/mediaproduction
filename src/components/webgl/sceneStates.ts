@@ -1,4 +1,4 @@
-export type SceneStateId = "production" | "pipeline" | "finance" | "brand" | "automation";
+export type SceneStateId = "production" | "pipeline" | "finance" | "automation";
 
 export type SceneState = {
   id: SceneStateId;
@@ -79,32 +79,6 @@ export const sceneStates: readonly SceneState[] = [
     ],
     cardRotations: flatRotations,
     barHeights: [3.2, 2.2, 1.65, 0.82, 1.12],
-  },
-  {
-    id: "brand",
-    selector: ".brand-section",
-    label: "Личный бренд как двигатель",
-    caption: "Контент и кейсы собираются вокруг доверия",
-    modules: ["Экспертность", "Кейсы", "Процессы", "Доверие", "Заявки", "Рост чека"],
-    corePosition: [0, 0, 0],
-    coreScale: 1.2,
-    cardPositions: [
-      [-2.4, 0, -0.2],
-      [-1.25, 1.65, 0.1],
-      [1.2, 1.65, -0.15],
-      [2.4, 0, 0.2],
-      [1.2, -1.65, -0.1],
-      [-1.25, -1.65, 0.15],
-    ],
-    cardRotations: [
-      [0, 0.2, 0],
-      [0, 0.12, -0.08],
-      [0, -0.12, 0.08],
-      [0, -0.2, 0],
-      [0, -0.12, -0.08],
-      [0, 0.12, 0.08],
-    ],
-    barHeights: [0.2, 0.2, 0.2, 0.2, 0.2],
   },
   {
     id: "automation",
