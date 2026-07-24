@@ -70,6 +70,7 @@ export default function HomePage() {
                 <Link className="button button-primary" href="#model">Изучить бизнес-модель <ArrowDownRight size={18} /></Link>
                 <Link className="button button-secondary" href="#finance">Финансовая модель</Link>
                 <Link className="text-link" href="#portfolio">Открыть портфолио <ArrowRight size={16} /></Link>
+                <Link className="text-link" href="/investor-room">Investor Room <ShieldCheck size={16} /></Link>
               </div>
             </Reveal>
             <Reveal className="hero-system">
