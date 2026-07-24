@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.vercel/
+.netlify/
+.env
+.env.*
+npm-debug.log*
+Dockerfile.tmp
+
+# Original media duplicates kept in the project root during editing.
+# The deployed site uses public/assets instead.
+/IMG_*
+/WhatsApp Image *.jpeg
+
+.vercel

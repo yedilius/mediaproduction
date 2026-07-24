@@ -1,0 +1,43 @@
+.section {
+  position: relative;
+  padding: clamp(72px, 9vw, 128px) 0;
+  overflow: hidden;
+  opacity: 1;
+  transform: none;
+  transition: background-color 240ms ease;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dark {
+  background: var(--color-graphite);
+  color: var(--color-paper);
+}
+
+.light {
+  background: var(--color-milk);
+  color: var(--color-ink);
+}
+
+.white {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.inner {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+@media (max-width: 720px) {
+  .section {
+    padding: 64px 0;
+  }
+
+  .inner {
+    width: min(100% - 28px, 1180px);
+  }
+}

@@ -1,0 +1,21 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px max(20px, calc((100vw - 1180px) / 2));
+  background: #101010;
+  color: var(--color-muted);
+  font-size: 0.92rem;
+}
+
+.footer a {
+  color: var(--color-paper);
+  font-weight: 800;
+}
+
+@media (max-width: 560px) {
+  .footer {
+    display: grid;
+  }
+}
