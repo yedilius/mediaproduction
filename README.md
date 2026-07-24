@@ -8,6 +8,7 @@
 - React + TypeScript
 - CSS design tokens and responsive layout
 - Motion
+- Three.js — lightweight interactive hero scene with WebGL fallback
 - Recharts
 - React Hook Form + Zod
 - Vitest

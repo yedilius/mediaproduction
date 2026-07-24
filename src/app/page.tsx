@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowDownRight,
@@ -15,6 +16,7 @@ import {
 import { FinanceDashboard } from "@/components/FinanceDashboard";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { InvestorCalculator } from "@/components/InvestorCalculator";
+import { MediaSystemScene } from "@/components/MediaSystemScene";
 import { PortfolioGrid } from "@/components/PortfolioGrid";
 import { Reveal } from "@/components/Reveal";
 import { RiskMatrix } from "@/components/RiskMatrix";
@@ -79,11 +81,7 @@ export default function HomePage() {
                 <span>CONTENT OS / 01</span>
                 <Gauge size={22} />
               </div>
-              <div className="system-orbit">
-                <div className="orbit orbit-one" />
-                <div className="orbit orbit-two" />
-                <div className="orbit-core"><span>24h</span><small>delivery</small></div>
-              </div>
+              <MediaSystemScene />
               <div className="system-foot">
                 <span>{siteConfig.role}</span>
                 <span>Strategy → Production → Growth</span>
@@ -210,17 +208,29 @@ export default function HomePage() {
 
         <section className="section-shell brand-section">
           <Reveal className="brand-panel">
-            <div>
-              <span className="eyebrow">06 · Growth engine</span>
-              <h2>Личный бренд как двигатель роста.</h2>
-              <p>Экспертный контент показывает кейсы, процессы команды, результаты клиентов, маркетинг, технологии, IT и автоматизацию.</p>
+            <div className="brand-main">
+              <div>
+                <span className="eyebrow">06 · Growth engine</span>
+                <h2>Личный бренд как двигатель роста.</h2>
+                <p>Экспертный контент показывает кейсы, процессы команды, результаты клиентов, маркетинг, технологии, IT и автоматизацию.</p>
+              </div>
+              <div className="brand-outcomes">
+                {["Органические заявки", "Доверие", "Снижение зависимости от рекламы", "Повышение среднего чека", "Партнерства", "Более крупные клиенты"].map((item) => <span key={item}>{item}</span>)}
+              </div>
+              <div className="check-trajectory">
+                <small>Стратегический потенциал среднего чека — не гарантия</small>
+                <div><strong>300 000 ₸</strong><ArrowRight /><strong>350–400 тыс. ₸</strong><ArrowRight /><strong>450–700 тыс. ₸</strong></div>
+              </div>
             </div>
-            <div className="brand-outcomes">
-              {["Органические заявки", "Доверие", "Снижение зависимости от рекламы", "Повышение среднего чека", "Партнерства", "Более крупные клиенты"].map((item) => <span key={item}>{item}</span>)}
-            </div>
-            <div className="check-trajectory">
-              <small>Стратегический потенциал среднего чека — не гарантия</small>
-              <div><strong>300 000 ₸</strong><ArrowRight /><strong>350–400 тыс. ₸</strong><ArrowRight /><strong>450–700 тыс. ₸</strong></div>
+            <div className="brand-portrait">
+              <Image src="/assets/images/strategist-portrait.jpeg" alt="Стратег-менеджер и инициатор проекта" fill sizes="(min-width: 900px) 32vw, 100vw" />
+              <div className="brand-portrait-secondary">
+                <Image src="/assets/images/strategist-city.jpeg" alt="" fill sizes="180px" />
+              </div>
+              <div className="brand-portrait-label">
+                <span>Project initiator / 01</span>
+                <strong>{siteConfig.role}</strong>
+              </div>
             </div>
           </Reveal>
         </section>
