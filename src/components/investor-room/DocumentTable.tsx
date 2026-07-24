@@ -9,9 +9,8 @@ export function DocumentTable() {
       <table className={styles.table}>
         <thead>
           <tr>
-            <th style={{ width: "20%" }}>Материал</th>
+            <th style={{ width: "24%" }}>Материал</th>
             <th>Краткое описание</th>
-            <th style={{ width: "16%" }}>Статус</th>
             <th style={{ width: "14%" }}>Обновление</th>
             <th style={{ width: "13%" }}>Действие</th>
           </tr>
@@ -21,20 +20,11 @@ export function DocumentTable() {
             <tr key={document.title}>
               <td data-label="Материал">{document.title}</td>
               <td data-label="Описание">{document.description}</td>
-              <td data-label="Статус">
-                <span className={`${styles.status} ${document.status === "Доступно" ? styles.available : ""}`}>
-                  {document.status}
-                </span>
-              </td>
               <td data-label="Обновление">{document.updatedAt}</td>
               <td data-label="Действие">
-                {document.href ? (
-                  <Link className={styles.tableAction} href={document.href}>
-                    Открыть <ArrowUpRight size={13} />
-                  </Link>
-                ) : (
-                  <span className={styles.disabledAction}>Пока недоступно</span>
-                )}
+                <Link className={styles.tableAction} href={document.href}>
+                  Открыть <ArrowUpRight size={13} />
+                </Link>
               </td>
             </tr>
           ))}

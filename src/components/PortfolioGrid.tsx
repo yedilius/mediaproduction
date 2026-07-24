@@ -73,7 +73,7 @@ export function PortfolioGrid() {
                   <p><strong>Решение:</strong> {item.solution}</p>
                   <p><strong>Работы:</strong> {item.work.join(", ")}</p>
                   <p><strong>Результат:</strong> {item.result}</p>
-                  <p className="placeholder-note">{item.metrics}</p>
+                  {item.metrics && <p className="case-metrics">{item.metrics}</p>}
                 </div>
               </details>
             </div>

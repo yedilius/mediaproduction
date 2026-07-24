@@ -1,15 +1,15 @@
 .workspace {
-  --room-bg: #090c0a;
-  --room-panel: #111512;
-  --room-panel-soft: #151a16;
-  --room-line: rgba(226, 235, 225, 0.12);
-  --room-text: #f3f5f2;
-  --room-muted: #939b94;
-  --room-accent: #c7ff3d;
+  --room-bg: #f5f6ef;
+  --room-panel: #ffffff;
+  --room-panel-soft: #eef1e8;
+  --room-line: rgba(24, 35, 25, 0.13);
+  --room-text: #151c16;
+  --room-muted: #657067;
+  --room-accent: #a3d42d;
   min-height: 100vh;
   color: var(--room-text);
   background:
-    radial-gradient(circle at 82% 2%, rgba(199, 255, 61, 0.07), transparent 28rem),
+    radial-gradient(circle at 82% 2%, rgba(163, 212, 45, 0.14), transparent 30rem),
     var(--room-bg);
 }
 
@@ -24,7 +24,8 @@
   align-items: center;
   gap: 24px;
   border-bottom: 1px solid var(--room-line);
-  background: rgba(9, 12, 10, 0.9);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 28px rgba(25, 35, 26, 0.05);
   backdrop-filter: blur(18px);
 }
 
@@ -42,7 +43,7 @@
   flex: 0 0 auto;
   place-items: center;
   border-radius: 12px;
-  color: #0a0d0a;
+  color: #151c16;
   background: var(--room-accent);
   font: 750 12px/1 var(--font-mono), monospace;
 }
@@ -113,7 +114,7 @@
   padding: 0 14px;
   color: var(--room-text);
   border: 1px solid var(--room-line);
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(255, 255, 255, 0.72);
 }
 
 .backLink:hover,
@@ -139,12 +140,13 @@
   flex-direction: column;
   border: 1px solid var(--room-line);
   border-radius: 18px;
-  background: rgba(17, 21, 18, 0.72);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 16px 48px rgba(25, 35, 26, 0.05);
 }
 
 .navLabel {
   padding: 8px 10px 12px;
-  color: #687069;
+  color: #6d776e;
   font: 650 9px/1 var(--font-mono), monospace;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -161,7 +163,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #aeb5af;
+  color: #58635a;
   border: 1px solid transparent;
   border-radius: 10px;
   font-size: 12px;
@@ -170,7 +172,7 @@
 
 .nav a:hover {
   color: var(--room-text);
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(24, 35, 25, 0.045);
 }
 
 .nav a.active {
@@ -1081,5 +1083,103 @@
   .workspace *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Light Investor Room surfaces */
+.nav a.active {
+  border-color: rgba(126, 166, 29, 0.25);
+  background: rgba(163, 212, 45, 0.14);
+}
+
+.readinessBar i {
+  background: #d8ded4;
+}
+
+.pageHeader {
+  background:
+    linear-gradient(120deg, rgba(163, 212, 45, 0.12), transparent 52%),
+    var(--room-panel);
+}
+
+.summaryCard,
+.panel,
+.sectionBlock,
+.metricCard,
+.financeCard,
+.accordion,
+.deckItem,
+.portfolioItem {
+  box-shadow: 0 16px 48px rgba(27, 40, 28, 0.05);
+}
+
+.table th,
+.table td,
+.detailList dt,
+.accordionContent dt,
+.financeLabel,
+.chartLabel,
+.summaryCard > span {
+  color: var(--room-muted);
+}
+
+.eyebrow,
+.portfolioMeta {
+  color: #5d7b14;
+}
+
+.table td:first-child,
+.detailList dd,
+.accordionContent dd {
+  color: var(--room-text);
+}
+
+.table tbody tr:hover {
+  background: rgba(163, 212, 45, 0.055);
+}
+
+.tableAction {
+  color: #273411;
+  border-color: rgba(126, 166, 29, 0.28);
+  background: rgba(163, 212, 45, 0.16);
+}
+
+.status,
+.tag,
+.scenarioTag {
+  color: #4e5a50;
+  background: rgba(24, 35, 25, 0.055);
+}
+
+.available,
+.activeTag {
+  color: #40580e;
+  border-color: rgba(126, 166, 29, 0.28);
+  background: rgba(163, 212, 45, 0.15);
+}
+
+.financeChart {
+  background: linear-gradient(180deg, rgba(163, 212, 45, 0.055), rgba(255, 255, 255, 0));
+}
+
+.chartGridLine,
+.chartAxis {
+  border-color: rgba(24, 35, 25, 0.1);
+}
+
+.portfolioMedia {
+  background: #e8ece3;
+}
+
+.summaryCard p,
+.accordionContent small,
+.accordionContent p,
+.portfolioCopy strong {
+  color: var(--room-muted);
+}
+
+@media (max-width: 720px) {
+  .table td::before {
+    color: #6d776e;
   }
 }

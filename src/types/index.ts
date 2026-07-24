@@ -20,7 +20,7 @@ export type PortfolioCase = {
   video?: string;
   work: string[];
   result: string;
-  metrics: string;
+  metrics?: string;
   href?: string;
   date: string;
   category: PortfolioCategory;

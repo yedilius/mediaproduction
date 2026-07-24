@@ -115,8 +115,8 @@ export function InvestorCalculator() {
             <AreaChart data={projection}>
               <defs>
                 <linearGradient id="payout" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#c7ff3d" stopOpacity={0.45} />
-                  <stop offset="100%" stopColor="#c7ff3d" stopOpacity={0} />
+                  <stop offset="0%" stopColor="#91bd25" stopOpacity={0.38} />
+                  <stop offset="100%" stopColor="#91bd25" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid stroke="rgba(255,255,255,.08)" vertical={false} />
@@ -126,7 +126,7 @@ export function InvestorCalculator() {
                 contentStyle={{ background: "#151916", border: "1px solid #303730", borderRadius: 14 }}
                 formatter={(value) => formatCurrency(Number(value))}
               />
-              <Area type="monotone" dataKey="accumulatedPayout" name="Накопленные выплаты" stroke="#c7ff3d" fill="url(#payout)" strokeWidth={2} />
+              <Area type="monotone" dataKey="accumulatedPayout" name="Накопленные выплаты" stroke="#789d1d" fill="url(#payout)" strokeWidth={2} />
             </AreaChart>
           </ResponsiveContainer>
         </div>

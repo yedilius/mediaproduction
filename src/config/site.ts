@@ -12,10 +12,6 @@ export const siteConfig = {
     { label: "Портфолио", href: "#portfolio" },
     { label: "Investor Room", href: "/investor-room" },
   ],
-  contact: {
-    email: "hello@placeholder.kz",
-    note: "Контактные данные будут уточнены перед публикацией.",
-  },
 } as const;
 
 export const heroMetrics = [

@@ -11,7 +11,7 @@ export default function InvestorRoomPage() {
       <PageHeader
         eyebrow="Executive Summary"
         title="Обзор проекта"
-        description="Ключевая информация о бизнес-модели, инвестиционной логике и готовности материалов — без длинной презентации."
+        description="Ключевая информация о бизнес-модели, инвестиционной логике и операционной системе — в одном структурированном обзоре."
       />
 
       <section className={styles.summaryGrid} aria-label="Ключевые показатели">
@@ -60,7 +60,7 @@ export default function InvestorRoomPage() {
       <section className={styles.sectionBlock}>
         <div className={styles.sectionTitle}>
           <h2>Материалы и документы</h2>
-          <p>Доступные материалы открываются внутри Investor Room. Неготовые действия отключены.</p>
+          <p>Все материалы в списке доступны и открываются внутри Investor Room.</p>
         </div>
         <DocumentTable />
       </section>

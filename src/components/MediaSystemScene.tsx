@@ -100,7 +100,7 @@ export function MediaSystemScene() {
 
       const coreGeometry = new THREE.IcosahedronGeometry(0.82, 2);
       const coreMaterial = new THREE.MeshBasicMaterial({
-        color: 0xc7ff3d,
+        color: 0x7fa61f,
         wireframe: true,
         transparent: true,
         opacity: 0.62,
@@ -110,7 +110,7 @@ export function MediaSystemScene() {
 
       const innerGeometry = new THREE.IcosahedronGeometry(0.64, 2);
       const innerMaterial = new THREE.MeshBasicMaterial({
-        color: 0x172018,
+        color: 0xdfe7d8,
         transparent: true,
         opacity: 0.92,
       });
@@ -119,7 +119,7 @@ export function MediaSystemScene() {
 
       const cardGeometry = new THREE.PlaneGeometry(0.74, 1.18, 3, 5);
       const cardMaterials = Array.from({ length: 6 }, (_, index) => new THREE.MeshBasicMaterial({
-        color: index % 2 === 0 ? 0xc7ff3d : 0xe5ebe4,
+        color: index % 2 === 0 ? 0x7fa61f : 0x344037,
         wireframe: true,
         transparent: true,
         opacity: index % 2 === 0 ? 0.48 : 0.28,
@@ -136,7 +136,7 @@ export function MediaSystemScene() {
       const connectionsGeometry = new THREE.BufferGeometry();
       connectionsGeometry.setAttribute("position", new THREE.BufferAttribute(linePositions, 3));
       const connectionsMaterial = new THREE.LineBasicMaterial({
-        color: 0xc7ff3d,
+        color: 0x6f921a,
         transparent: true,
         opacity: 0.18,
       });
@@ -145,7 +145,7 @@ export function MediaSystemScene() {
 
       const barGeometry = new THREE.BoxGeometry(0.52, 1, 0.42);
       const barMaterials = Array.from({ length: 5 }, (_, index) => new THREE.MeshBasicMaterial({
-        color: index === 0 ? 0xc7ff3d : index === 1 ? 0x626d64 : 0xdde4dc,
+        color: index === 0 ? 0x8db724 : index === 1 ? 0x59655b : 0x303a32,
         wireframe: index !== 0,
         transparent: true,
         opacity: 0,
@@ -168,7 +168,7 @@ export function MediaSystemScene() {
       const particlesGeometry = new THREE.BufferGeometry();
       particlesGeometry.setAttribute("position", new THREE.BufferAttribute(particlePositions, 3));
       const particlesMaterial = new THREE.PointsMaterial({
-        color: 0xc7ff3d,
+        color: 0x668817,
         size: 0.018,
         transparent: true,
         opacity: 0.28,

@@ -1,7 +1,5 @@
 import type { PortfolioCase } from "@/types";
 
-const placeholderMetrics = "Данные будут добавлены из реального кейса";
-
 export const portfolioCategories = ["Все", "SMM", "Съёмка", "Дизайн", "Сайты", "Маркетинг", "IT", "AI и автоматизация"] as const;
 
 export const portfolioCases: PortfolioCase[] = [
@@ -15,7 +13,6 @@ export const portfolioCases: PortfolioCase[] = [
     video: "/assets/videos/IMG_4885.MP4",
     work: ["Сценарная структура", "Съёмка", "Монтаж Reels"],
     result: "Создан готовый имиджевый ролик для социальных сетей.",
-    metrics: placeholderMetrics,
     date: "2026",
     category: "Съёмка",
   },
@@ -29,7 +26,6 @@ export const portfolioCases: PortfolioCase[] = [
     video: "/assets/videos/IMG_4886.MP4",
     work: ["Контент-концепция", "Съёмка", "Монтаж", "Визуальная система"],
     result: "Подготовлен комплект материалов для регулярной коммуникации клиники.",
-    metrics: placeholderMetrics,
     date: "2026",
     category: "SMM",
   },
@@ -43,7 +39,6 @@ export const portfolioCases: PortfolioCase[] = [
     video: "/assets/videos/IMG_4891.MP4",
     work: ["Съёмка", "Монтаж", "Дизайн контента"],
     result: "Сформирован набор публикационных материалов.",
-    metrics: placeholderMetrics,
     date: "2026",
     category: "Дизайн",
   },
@@ -57,7 +52,6 @@ export const portfolioCases: PortfolioCase[] = [
     video: "/assets/videos/IMG_4896.MP4",
     work: ["Событийная съёмка", "Монтаж"],
     result: "Создан итоговый эмоциональный видеоматериал.",
-    metrics: placeholderMetrics,
     date: "2026",
     category: "Съёмка",
   },
@@ -71,7 +65,6 @@ export const portfolioCases: PortfolioCase[] = [
     video: "/assets/videos/IMG_4898.MP4",
     work: ["Съёмка", "Монтаж", "Цветокоррекция"],
     result: "Подготовлен цельный событийный ролик.",
-    metrics: placeholderMetrics,
     date: "2026",
     category: "Съёмка",
   },
@@ -85,7 +78,6 @@ export const portfolioCases: PortfolioCase[] = [
     video: "/assets/videos/IMG_4897.MP4",
     work: ["Концепция", "Съёмка", "Монтаж"],
     result: "Создан короткий эмоциональный видеоформат.",
-    metrics: placeholderMetrics,
     date: "2026",
     category: "Съёмка",
   },
@@ -99,7 +91,6 @@ export const portfolioCases: PortfolioCase[] = [
     video: "/assets/videos/IMG_4890.MP4",
     work: ["Съёмка", "Монтаж", "Reels-креатив"],
     result: "Подготовлен продуктовый ролик для социальных сетей.",
-    metrics: placeholderMetrics,
     date: "2026",
     category: "Маркетинг",
   },
@@ -113,7 +104,6 @@ export const portfolioCases: PortfolioCase[] = [
     video: "/assets/videos/IMG_4889.MP4",
     work: ["Съёмка процесса", "Монтаж", "Контент-упаковка"],
     result: "Создан деловой видеоматериал о работе проекта.",
-    metrics: placeholderMetrics,
     date: "2026",
     category: "SMM",
   },

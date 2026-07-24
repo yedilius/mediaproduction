@@ -3,10 +3,8 @@
 import {
   BriefcaseBusiness,
   ChartNoAxesCombined,
-  FileCheck2,
   FolderKanban,
   LayoutDashboard,
-  Presentation,
   ShieldCheck,
   Users,
   WalletCards,
@@ -23,12 +21,10 @@ const icons = [
   LayoutDashboard,
   ChartNoAxesCombined,
   WalletCards,
-  Presentation,
   FolderKanban,
   Users,
   ShieldCheck,
   BriefcaseBusiness,
-  FileCheck2,
 ] as const;
 
 function isActive(pathname: string, href: string) {
@@ -50,8 +46,8 @@ export function InvestorRoomShell({ children }: { children: ReactNode }) {
                 text={investorRoomMeta.title}
                 speed={3.6}
                 delay={1.8}
-                color="#f3f5f2"
-                shineColor="#c7ff3d"
+                color="#172019"
+                shineColor="#7da61d"
               />
             </strong>
             <p>{investorRoomMeta.description}</p>
@@ -88,11 +84,8 @@ export function InvestorRoomShell({ children }: { children: ReactNode }) {
             })}
           </nav>
           <div className={styles.readiness}>
-            <small>Готовность материалов</small>
-            <strong>{investorRoomMeta.readiness}</strong>
-            <div className={styles.readinessBar} aria-hidden="true">
-              <i /><i /><i />
-            </div>
+            <small>Версия данных</small>
+            <strong>{investorRoomMeta.updatedAt}</strong>
           </div>
         </aside>
 

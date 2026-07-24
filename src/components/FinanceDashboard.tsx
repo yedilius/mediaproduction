@@ -50,7 +50,7 @@ export function FinanceDashboard() {
               formatter={(value) => formatCurrency(Number(value))}
             />
             <Bar dataKey="Выручка" fill="#858d86" radius={[6, 6, 0, 0]} />
-            <Bar dataKey="Прибыль" fill="#c7ff3d" radius={[6, 6, 0, 0]} />
+            <Bar dataKey="Прибыль" fill="#91bd25" radius={[6, 6, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

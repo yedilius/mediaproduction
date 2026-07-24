@@ -77,8 +77,8 @@ export default function HomePage() {
                   text="за один съемочный день"
                   speed={3.4}
                   delay={1.2}
-                  color="#c7ff3d"
-                  shineColor="#ffffff"
+                  color="#496313"
+                  shineColor="#a3d42d"
                   spread={115}
                 />
               </h1>
@@ -276,20 +276,19 @@ export default function HomePage() {
             <h2>Из набора публикаций — в измеримую marketing system.</h2>
           </Reveal>
           <BeforeAfter />
-          <p className="placeholder-note center-note">Количественные показатели будут добавлены из реального кейса.</p>
         </section>
 
         <section className="section-shell portfolio-section" id="portfolio">
           <Reveal className="section-intro inline-intro">
             <div><span className="eyebrow">10 · Реальные работы</span><h2>Портфолио, которое уже существует.</h2></div>
-            <p>Сохранены реальные материалы исходного сайта. Результаты не выдуманы: недостающие метрики отмечены как данные для последующего добавления.</p>
+            <p>Реальные видео, задачи, решения и выполненные работы из существующего портфолио — без выдуманных показателей.</p>
           </Reveal>
           <PortfolioGrid />
         </section>
 
         <section className="section-shell investor-cta">
           <Reveal className="investor-panel">
-            <div><span className="eyebrow">11 · Investor Room</span><h2>Структура для due diligence — без публикации конфиденциальных файлов.</h2></div>
+            <div><span className="eyebrow">11 · Investor Room</span><h2>Бизнес-модель, экономика и операционные материалы в одном кабинете.</h2></div>
             <ClickSpark>
               <Link className="button button-primary" href="/investor-room">Открыть Investor Room <ShieldCheck size={18} /></Link>
             </ClickSpark>
@@ -299,7 +298,7 @@ export default function HomePage() {
 
       <footer className="site-footer section-shell">
         <div><span className="brand-mark">MP</span><strong>Media Production</strong></div>
-        <p>{siteConfig.role}<br />{siteConfig.contact.note}</p>
+        <p>{siteConfig.role}</p>
         <Link href="#top">Наверх ↑</Link>
       </footer>
     </>

@@ -83,8 +83,8 @@ export function InvestorFinanceSummary() {
           <AreaChart data={projection} margin={{ top: 10, right: 8, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="roomRevenue" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#c7ff3d" stopOpacity={0.32} />
-                <stop offset="100%" stopColor="#c7ff3d" stopOpacity={0} />
+                <stop offset="0%" stopColor="#91bd25" stopOpacity={0.3} />
+                <stop offset="100%" stopColor="#91bd25" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid stroke="rgba(226,235,225,.08)" vertical={false} />
@@ -105,7 +105,7 @@ export function InvestorFinanceSummary() {
               tickFormatter={(value) => `${Math.round(Number(value) / 1_000_000)}M`}
             />
             <Tooltip
-              contentStyle={{ background: "#111512", border: "1px solid rgba(226,235,225,.12)", borderRadius: 10 }}
+              contentStyle={{ background: "#ffffff", color: "#151c16", border: "1px solid rgba(24,35,25,.13)", borderRadius: 10 }}
               labelFormatter={(value) => `${value}-й месяц`}
               formatter={(value) => formatCurrency(Number(value))}
             />
@@ -113,7 +113,7 @@ export function InvestorFinanceSummary() {
               type="monotone"
               dataKey="revenue"
               name="Выручка"
-              stroke="#c7ff3d"
+              stroke="#789d1d"
               fill="url(#roomRevenue)"
               strokeWidth={2}
             />
@@ -121,7 +121,7 @@ export function InvestorFinanceSummary() {
               type="monotone"
               dataKey="netProfit"
               name="Чистая прибыль"
-              stroke="#f3f5f2"
+              stroke="#475148"
               fill="transparent"
               strokeWidth={1.4}
             />
