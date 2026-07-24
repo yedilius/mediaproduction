@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo, useState } from "react";
-import { Play } from "lucide-react";
+import { Pause, Play } from "lucide-react";
 import { portfolioCases, portfolioCategories } from "@/config/portfolio";
 
 export function PortfolioGrid() {
@@ -25,23 +24,45 @@ export function PortfolioGrid() {
       <div className="portfolio-grid">
         {cases.map((item, index) => (
           <article className={`portfolio-card ${index === 0 ? "portfolio-featured" : ""}`} key={item.id}>
-            <button
-              type="button"
+            <div
               className="portfolio-media"
-              onClick={() => item.video && setActiveVideo(activeVideo === item.id ? null : item.id)}
-              aria-label={activeVideo === item.id ? `Показать обложку ${item.title}` : `Воспроизвести видео ${item.title}`}
+              onMouseEnter={(event) => {
+                if (activeVideo !== item.id) void event.currentTarget.querySelector("video")?.play();
+              }}
+              onMouseLeave={(event) => {
+                if (activeVideo !== item.id) {
+                  const video = event.currentTarget.querySelector("video");
+                  video?.pause();
+                  if (video) video.currentTime = 0;
+                }
+              }}
             >
-              {activeVideo === item.id && item.video ? (
-                <video controls autoPlay preload="metadata" poster={item.image}>
+              {item.video ? (
+                <video
+                  controls={activeVideo === item.id}
+                  autoPlay={activeVideo === item.id}
+                  muted={activeVideo !== item.id}
+                  loop={activeVideo !== item.id}
+                  playsInline
+                  preload="metadata"
+                  poster={item.image}
+                >
                   <source src={item.video} type="video/mp4" />
                 </video>
               ) : (
-                <>
-                  <Image src={item.image} alt="" fill sizes={index === 0 ? "(min-width: 900px) 66vw, 100vw" : "(min-width: 900px) 33vw, 100vw"} />
-                  {item.video && <span className="play-button"><Play size={18} fill="currentColor" /></span>}
-                </>
+                <div className="portfolio-image-fallback" style={{ backgroundImage: `url(${item.image})` }} />
               )}
-            </button>
+              {item.video && (
+                <button
+                  type="button"
+                  className="play-button"
+                  onClick={() => setActiveVideo(activeVideo === item.id ? null : item.id)}
+                  aria-label={activeVideo === item.id ? `Остановить видео ${item.title}` : `Воспроизвести видео ${item.title}`}
+                >
+                  {activeVideo === item.id ? <Pause size={18} fill="currentColor" /> : <Play size={18} fill="currentColor" />}
+                </button>
+              )}
+            </div>
             <div className="portfolio-copy">
               <div className="card-meta"><span>{item.category}</span><span>{item.date}</span></div>
               <h3>{item.title}</h3>

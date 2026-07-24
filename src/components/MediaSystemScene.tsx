@@ -1,10 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { sceneStates } from "@/components/webgl/sceneStates";
 
 export function MediaSystemScene() {
   const hostRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const labelRef = useRef<HTMLSpanElement>(null);
+  const captionRef = useRef<HTMLElement>(null);
+  const modulesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -13,19 +17,61 @@ export function MediaSystemScene() {
 
     let disposed = false;
     let frameId = 0;
-    let visible = true;
-    let intersecting = true;
+    let pageVisible = document.visibilityState === "visible";
+    let canvasVisible = true;
     let cleanupScene = () => {};
+    let activeStateIndex = 0;
+    let targetStateIndex = 0;
     const pointer = { x: 0, y: 0 };
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const stateSections = sceneStates.map((state) => document.querySelector(state.selector));
     const deviceNavigator = navigator as Navigator & {
       connection?: { saveData?: boolean };
       deviceMemory?: number;
     };
+
     if (deviceNavigator.connection?.saveData || (deviceNavigator.deviceMemory && deviceNavigator.deviceMemory < 4)) {
       host.classList.add("is-fallback");
       return;
     }
+
+    const setInterfaceState = (stateIndex: number) => {
+      const state = sceneStates[stateIndex];
+      host.dataset.state = state.id;
+      if (labelRef.current) labelRef.current.textContent = state.label;
+      if (captionRef.current) captionRef.current.textContent = state.caption;
+      if (modulesRef.current) {
+        modulesRef.current.replaceChildren(
+          ...state.modules.map((module) => {
+            const node = document.createElement("span");
+            node.textContent = module;
+            return node;
+          }),
+        );
+      }
+    };
+
+    const updateScrollState = () => {
+      const viewportAnchor = window.innerHeight * 0.48;
+      let closestIndex = 0;
+      let closestDistance = Number.POSITIVE_INFINITY;
+      stateSections.forEach((section, index) => {
+        if (!section) return;
+        const rect = section.getBoundingClientRect();
+        const sectionAnchor = Math.min(Math.max(viewportAnchor, rect.top), rect.bottom);
+        const distance = Math.abs(viewportAnchor - sectionAnchor);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+      if (closestIndex !== targetStateIndex) {
+        targetStateIndex = closestIndex;
+        setInterfaceState(targetStateIndex);
+      }
+    };
+
+    setInterfaceState(0);
 
     void import("three").then((THREE) => {
       if (disposed) return;
@@ -35,7 +81,7 @@ export function MediaSystemScene() {
         renderer = new THREE.WebGLRenderer({
           canvas,
           alpha: true,
-          antialias: window.devicePixelRatio < 2,
+          antialias: window.devicePixelRatio <= 1.5,
           powerPreference: "high-performance",
         });
       } catch {
@@ -44,117 +90,162 @@ export function MediaSystemScene() {
       }
 
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 30);
-      camera.position.set(0, 0, 7);
+      const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 30);
+      camera.position.set(0, 0, 8);
+      const targetVector = new THREE.Vector3();
+      const targetScale = new THREE.Vector3();
 
       const system = new THREE.Group();
       scene.add(system);
 
-      const coreGeometry = new THREE.IcosahedronGeometry(1.55, 2);
+      const coreGeometry = new THREE.IcosahedronGeometry(0.82, 2);
       const coreMaterial = new THREE.MeshBasicMaterial({
         color: 0xc7ff3d,
         wireframe: true,
         transparent: true,
-        opacity: 0.28,
+        opacity: 0.62,
       });
       const core = new THREE.Mesh(coreGeometry, coreMaterial);
-      core.rotation.set(0.24, 0.42, 0);
       system.add(core);
 
-      const shellGeometry = new THREE.IcosahedronGeometry(1.28, 3);
-      const shellMaterial = new THREE.MeshBasicMaterial({
-        color: 0x273329,
+      const innerGeometry = new THREE.IcosahedronGeometry(0.64, 2);
+      const innerMaterial = new THREE.MeshBasicMaterial({
+        color: 0x172018,
         transparent: true,
-        opacity: 0.72,
+        opacity: 0.92,
       });
-      const shell = new THREE.Mesh(shellGeometry, shellMaterial);
-      system.add(shell);
+      const innerCore = new THREE.Mesh(innerGeometry, innerMaterial);
+      core.add(innerCore);
 
-      const particleCount = window.innerWidth < 600 ? 560 : 1100;
-      const positions = new Float32Array(particleCount * 3);
-      for (let index = 0; index < particleCount; index += 1) {
-        const radius = 1.7 + Math.random() * 0.48;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos(2 * Math.random() - 1);
-        positions[index * 3] = radius * Math.sin(phi) * Math.cos(theta);
-        positions[index * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-        positions[index * 3 + 2] = radius * Math.cos(phi);
+      const cardGeometry = new THREE.PlaneGeometry(0.74, 1.18, 3, 5);
+      const cardMaterials = Array.from({ length: 6 }, (_, index) => new THREE.MeshBasicMaterial({
+        color: index % 2 === 0 ? 0xc7ff3d : 0xe5ebe4,
+        wireframe: true,
+        transparent: true,
+        opacity: index % 2 === 0 ? 0.48 : 0.28,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+      }));
+      const cards = cardMaterials.map((material) => {
+        const card = new THREE.Mesh(cardGeometry, material);
+        system.add(card);
+        return card;
+      });
+
+      const linePositions = new Float32Array(cards.length * 6);
+      const connectionsGeometry = new THREE.BufferGeometry();
+      connectionsGeometry.setAttribute("position", new THREE.BufferAttribute(linePositions, 3));
+      const connectionsMaterial = new THREE.LineBasicMaterial({
+        color: 0xc7ff3d,
+        transparent: true,
+        opacity: 0.18,
+      });
+      const connections = new THREE.LineSegments(connectionsGeometry, connectionsMaterial);
+      system.add(connections);
+
+      const barGeometry = new THREE.BoxGeometry(0.52, 1, 0.42);
+      const barMaterials = Array.from({ length: 5 }, (_, index) => new THREE.MeshBasicMaterial({
+        color: index === 0 ? 0xc7ff3d : index === 1 ? 0x626d64 : 0xdde4dc,
+        wireframe: index !== 0,
+        transparent: true,
+        opacity: 0,
+      }));
+      const bars = barMaterials.map((material, index) => {
+        const bar = new THREE.Mesh(barGeometry, material);
+        bar.position.x = (index - 2) * 0.9;
+        bar.position.y = -1.8;
+        system.add(bar);
+        return bar;
+      });
+
+      const particlesCount = window.innerWidth < 700 ? 180 : 360;
+      const particlePositions = new Float32Array(particlesCount * 3);
+      for (let index = 0; index < particlesCount; index += 1) {
+        particlePositions[index * 3] = (Math.random() - 0.5) * 7;
+        particlePositions[index * 3 + 1] = (Math.random() - 0.5) * 5;
+        particlePositions[index * 3 + 2] = (Math.random() - 0.5) * 2 - 1;
       }
       const particlesGeometry = new THREE.BufferGeometry();
-      particlesGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      particlesGeometry.setAttribute("position", new THREE.BufferAttribute(particlePositions, 3));
       const particlesMaterial = new THREE.PointsMaterial({
         color: 0xc7ff3d,
-        size: window.innerWidth < 600 ? 0.018 : 0.014,
+        size: 0.018,
         transparent: true,
-        opacity: 0.62,
+        opacity: 0.28,
         depthWrite: false,
       });
       const particles = new THREE.Points(particlesGeometry, particlesMaterial);
       system.add(particles);
 
-      const orbitMaterials: InstanceType<typeof THREE.LineBasicMaterial>[] = [];
-      const orbitGeometries: InstanceType<typeof THREE.BufferGeometry>[] = [];
-      [2.05, 2.48, 2.82].forEach((radius, index) => {
-        const curve = new THREE.EllipseCurve(0, 0, radius, radius * (0.64 + index * 0.06));
-        const geometry = new THREE.BufferGeometry().setFromPoints(curve.getPoints(160));
-        const material = new THREE.LineBasicMaterial({
-          color: index === 1 ? 0xc7ff3d : 0x748174,
-          transparent: true,
-          opacity: index === 1 ? 0.28 : 0.16,
-        });
-        const line = new THREE.LineLoop(geometry, material);
-        line.rotation.x = Math.PI * (0.22 + index * 0.17);
-        line.rotation.z = index * 0.64;
-        system.add(line);
-        orbitGeometries.push(geometry);
-        orbitMaterials.push(material);
-      });
-
-      const nodeGeometry = new THREE.SphereGeometry(0.07, 12, 12);
-      const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0xc7ff3d });
-      const nodes = Array.from({ length: 4 }, (_, index) => {
-        const pivot = new THREE.Group();
-        const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
-        node.position.x = 2.05 + index * 0.2;
-        pivot.rotation.set(index * 0.7, index * 1.2, index * 0.45);
-        pivot.add(node);
-        system.add(pivot);
-        return pivot;
-      });
-
       const resize = () => {
         const { width, height } = host.getBoundingClientRect();
         if (!width || !height) return;
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth < 600 ? 1.2 : 1.6));
+        const maxDpr = window.innerWidth < 760 ? 1 : 1.5;
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxDpr));
         renderer.setSize(width, height, false);
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
       };
 
       const onPointerMove = (event: PointerEvent) => {
-        const rect = host.getBoundingClientRect();
-        pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-        pointer.y = -(((event.clientY - rect.top) / rect.height) * 2 - 1);
+        pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = -((event.clientY / window.innerHeight) * 2 - 1);
       };
-      const onPointerLeave = () => {
-        pointer.x = 0;
-        pointer.y = 0;
+      const onVisibility = () => {
+        pageVisible = document.visibilityState === "visible";
       };
 
       const clock = new THREE.Clock();
       const render = () => {
         if (disposed) return;
-        if (visible) {
-          const elapsed = clock.getElapsedTime();
-          system.rotation.y += (pointer.x * 0.28 - system.rotation.y) * 0.035;
-          system.rotation.x += (-pointer.y * 0.16 - system.rotation.x) * 0.035;
-          core.rotation.y = elapsed * 0.13;
-          core.rotation.z = elapsed * 0.055;
-          shell.rotation.y = -elapsed * 0.045;
-          particles.rotation.y = elapsed * 0.025;
-          nodes.forEach((node, index) => {
-            node.rotation.z = elapsed * (0.11 + index * 0.018) + index;
+        const delta = Math.min(clock.getDelta(), 0.05);
+        const canRender = pageVisible && canvasVisible;
+        if (canRender) {
+          const interpolation = reducedMotion ? 1 : 1 - Math.exp(-delta * 4.8);
+          activeStateIndex += (targetStateIndex - activeStateIndex) * interpolation;
+          const state = sceneStates[Math.round(activeStateIndex)];
+          const isFinance = state.id === "finance";
+
+          targetVector.set(...state.corePosition);
+          core.position.lerp(targetVector, interpolation);
+          const targetCoreScale = state.coreScale;
+          targetScale.set(targetCoreScale, targetCoreScale, targetCoreScale);
+          core.scale.lerp(targetScale, interpolation);
+
+          cards.forEach((card, index) => {
+            const position = state.cardPositions[index];
+            const rotation = state.cardRotations[index];
+            targetVector.set(...position);
+            card.position.lerp(targetVector, interpolation);
+            card.rotation.x += (rotation[0] - card.rotation.x) * interpolation;
+            card.rotation.y += (rotation[1] - card.rotation.y) * interpolation;
+            card.rotation.z += (rotation[2] - card.rotation.z) * interpolation;
+            cardMaterials[index].opacity += ((isFinance ? 0.09 : index % 2 === 0 ? 0.48 : 0.28) - cardMaterials[index].opacity) * interpolation;
+
+            const offset = index * 6;
+            linePositions[offset] = core.position.x;
+            linePositions[offset + 1] = core.position.y;
+            linePositions[offset + 2] = core.position.z;
+            linePositions[offset + 3] = card.position.x;
+            linePositions[offset + 4] = card.position.y;
+            linePositions[offset + 5] = card.position.z;
           });
+          connectionsGeometry.attributes.position.needsUpdate = true;
+          connectionsMaterial.opacity += ((isFinance ? 0.06 : 0.18) - connectionsMaterial.opacity) * interpolation;
+
+          bars.forEach((bar, index) => {
+            const height = state.barHeights[index];
+            bar.scale.y += (height - bar.scale.y) * interpolation;
+            bar.position.y += ((-1.75 + height / 2) - bar.position.y) * interpolation;
+            barMaterials[index].opacity += ((isFinance ? 0.56 : 0) - barMaterials[index].opacity) * interpolation;
+          });
+
+          system.rotation.y += ((pointer.x * 0.08) - system.rotation.y) * interpolation * 0.45;
+          system.rotation.x += ((-pointer.y * 0.045) - system.rotation.x) * interpolation * 0.45;
+          if (!reducedMotion) {
+            core.rotation.y += delta * 0.18;
+            particles.rotation.y += delta * 0.025;
+          }
           renderer.render(scene, camera);
         }
         if (!reducedMotion) frameId = window.requestAnimationFrame(render);
@@ -162,38 +253,39 @@ export function MediaSystemScene() {
 
       const resizeObserver = new ResizeObserver(resize);
       const intersectionObserver = new IntersectionObserver(([entry]) => {
-        intersecting = entry.isIntersecting;
-        visible = intersecting && document.visibilityState === "visible";
-      }, { threshold: 0.05 });
-      const onVisibility = () => {
-        visible = intersecting && document.visibilityState === "visible";
-      };
+        canvasVisible = entry.isIntersecting;
+      }, { threshold: 0.01 });
 
       resizeObserver.observe(host);
       intersectionObserver.observe(host);
-      host.addEventListener("pointermove", onPointerMove, { passive: true });
-      host.addEventListener("pointerleave", onPointerLeave, { passive: true });
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+      window.addEventListener("scroll", updateScrollState, { passive: true });
+      window.addEventListener("resize", updateScrollState, { passive: true });
       document.addEventListener("visibilitychange", onVisibility);
       resize();
+      updateScrollState();
       render();
 
       const cleanup = () => {
         window.cancelAnimationFrame(frameId);
         resizeObserver.disconnect();
         intersectionObserver.disconnect();
-        host.removeEventListener("pointermove", onPointerMove);
-        host.removeEventListener("pointerleave", onPointerLeave);
+        window.removeEventListener("pointermove", onPointerMove);
+        window.removeEventListener("scroll", updateScrollState);
+        window.removeEventListener("resize", updateScrollState);
         document.removeEventListener("visibilitychange", onVisibility);
         coreGeometry.dispose();
         coreMaterial.dispose();
-        shellGeometry.dispose();
-        shellMaterial.dispose();
+        innerGeometry.dispose();
+        innerMaterial.dispose();
+        cardGeometry.dispose();
+        cardMaterials.forEach((material) => material.dispose());
+        connectionsGeometry.dispose();
+        connectionsMaterial.dispose();
+        barGeometry.dispose();
+        barMaterials.forEach((material) => material.dispose());
         particlesGeometry.dispose();
         particlesMaterial.dispose();
-        orbitGeometries.forEach((geometry) => geometry.dispose());
-        orbitMaterials.forEach((material) => material.dispose());
-        nodeGeometry.dispose();
-        nodeMaterial.dispose();
         renderer.dispose();
         renderer.forceContextLoss();
       };
@@ -219,11 +311,11 @@ export function MediaSystemScene() {
         <div className="orbit orbit-one" />
         <div className="orbit orbit-two" />
       </div>
-      <div className="scene-core-label">
-        <span>24h</span>
-        <small>delivery</small>
+      <div className="scene-state-copy" aria-hidden="true">
+        <span ref={labelRef}>Content Production OS</span>
+        <small ref={captionRef}>Стратегия превращается в готовые media-форматы</small>
       </div>
-      <div className="scene-caption"><i /> Interactive system / WebGL</div>
+      <div className="scene-modules" ref={modulesRef} aria-hidden="true" />
     </div>
   );
 }
