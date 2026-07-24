@@ -16,6 +16,9 @@ import { FinanceDashboard } from "@/components/FinanceDashboard";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { FounderPortrait } from "@/components/FounderPortrait";
 import { InvestorCalculator } from "@/components/InvestorCalculator";
+import { ClickSpark } from "@/components/effects/ClickSpark";
+import { LightRays } from "@/components/effects/LightRays";
+import { ShinyText } from "@/components/effects/ShinyText";
 import { PortfolioGrid } from "@/components/PortfolioGrid";
 import { Reveal } from "@/components/Reveal";
 import { RiskMatrix } from "@/components/RiskMatrix";
@@ -66,11 +69,25 @@ export default function HomePage() {
         <section className="hero section-shell">
           <div className="hero-grid">
             <Reveal className="hero-copy">
+              <LightRays className="hero-copy-rays" />
               <div className="status-pill"><span /> Инвестиционная платформа · Казахстан</div>
-              <h1>Месяц контента <em>за один съемочный день</em></h1>
+              <h1>
+                Месяц контента{" "}
+                <ShinyText
+                  className="hero-shiny"
+                  text="за один съемочный день"
+                  speed={3.4}
+                  delay={1.2}
+                  color="#c7ff3d"
+                  shineColor="#ffffff"
+                  spread={115}
+                />
+              </h1>
               <p>{siteConfig.description}</p>
               <div className="hero-actions">
-                <Link className="button button-primary" href="#model">Изучить бизнес-модель <ArrowDownRight size={18} /></Link>
+                <ClickSpark>
+                  <Link className="button button-primary" href="#model">Изучить бизнес-модель <ArrowDownRight size={18} /></Link>
+                </ClickSpark>
                 <Link className="button button-secondary" href="#finance">Финансовая модель</Link>
                 <Link className="text-link" href="#portfolio">Открыть портфолио <ArrowRight size={16} /></Link>
                 <Link className="text-link" href="/investor-room">Investor Room <ShieldCheck size={16} /></Link>
@@ -298,7 +315,9 @@ export default function HomePage() {
         <section className="section-shell investor-cta">
           <Reveal className="investor-panel">
             <div><span className="eyebrow">12 · Investor Room</span><h2>Структура для due diligence — без публикации конфиденциальных файлов.</h2></div>
-            <Link className="button button-primary" href="/investor-room">Открыть Investor Room <ShieldCheck size={18} /></Link>
+            <ClickSpark>
+              <Link className="button button-primary" href="/investor-room">Открыть Investor Room <ShieldCheck size={18} /></Link>
+            </ClickSpark>
           </Reveal>
         </section>
       </main>

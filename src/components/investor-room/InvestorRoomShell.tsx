@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import type { ReactNode } from "react";
+import { ShinyText } from "@/components/effects/ShinyText";
 import { investorRoomMeta, investorRoomNavigation } from "@/config/investor-room";
 import styles from "./InvestorRoom.module.css";
 
@@ -44,7 +45,15 @@ export function InvestorRoomShell({ children }: { children: ReactNode }) {
         <div className={styles.heading}>
           <span className={styles.mark}>MP</span>
           <div>
-            <strong>{investorRoomMeta.title}</strong>
+            <strong>
+              <ShinyText
+                text={investorRoomMeta.title}
+                speed={3.6}
+                delay={1.8}
+                color="#f3f5f2"
+                shineColor="#c7ff3d"
+              />
+            </strong>
             <p>{investorRoomMeta.description}</p>
           </div>
         </div>
