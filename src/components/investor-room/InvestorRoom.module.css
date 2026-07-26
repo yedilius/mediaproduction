@@ -860,7 +860,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1080px) {
   .topbar {
     position: relative;
     grid-template-columns: 1fr auto;
@@ -956,10 +956,23 @@
   }
 
   .summaryGrid,
-  .financeMetrics,
   .cardGrid,
   .portfolioGrid {
     grid-template-columns: 1fr;
+  }
+
+  .financeMetrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .financeMetric {
+    min-height: 108px;
+    padding: 14px;
+  }
+
+  .financeMetric:last-child {
+    grid-column: 1 / -1;
   }
 
   .summaryCard {
@@ -973,8 +986,21 @@
 
   .panelHead,
   .sectionTitle {
+    width: 100%;
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .periodSwitch {
+    width: 100%;
+  }
+
+  .periodSwitch button {
+    min-width: 0;
+    min-height: 44px;
+    flex: 1 1 0;
+    padding-inline: 8px;
+    font-size: 11px;
   }
 
   .systemChain {
@@ -1072,8 +1098,42 @@
   }
 
   .financeChart {
-    height: 280px;
-    padding-left: 0;
+    height: 270px;
+    padding: 14px 4px 6px;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 420px) {
+  .shell {
+    padding-inline: 10px;
+    padding-bottom: 44px;
+  }
+
+  .financeMetrics {
+    grid-template-columns: 1fr;
+  }
+
+  .financeMetric:last-child {
+    grid-column: auto;
+  }
+
+  .financeMetric {
+    min-height: 96px;
+  }
+
+  .financeMetric strong {
+    font-size: 21px;
+    overflow-wrap: anywhere;
+  }
+
+  .financeChart {
+    height: 235px;
+    margin-inline: -2px;
+  }
+
+  .periodSwitch button {
+    font-size: 10px;
   }
 }
 

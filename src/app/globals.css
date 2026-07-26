@@ -440,8 +440,9 @@ main > section { position: relative; z-index: 1; }
 .scenario-grid dl div { display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; }
 .scenario-grid dd { margin: 0; color: var(--text); }
 
-.calculator-shell { display: grid; grid-template-columns: .72fr 1.28fr; gap: 16px; }
+.calculator-shell { display: grid; grid-template-columns: minmax(420px, .72fr) minmax(0, 1.28fr); align-items: start; gap: 16px; }
 .calculator-form, .calculator-results { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.calculator-form, .calculator-results, .result-card { min-width: 0; }
 .calculator-form { display: grid; grid-template-columns: 1fr 1fr; align-content: start; gap: 18px 12px; }
 .field { display: grid; gap: 8px; color: var(--muted); font-size: 12px; }
 .input-wrap { position: relative; display: block; }
@@ -543,12 +544,16 @@ main > section { position: relative; z-index: 1; }
 
 @media (max-width: 1100px) {
   .site-header nav { display: none; }
-  .hero-grid, .finance-layout, .calculator-shell, .risk-layout { grid-template-columns: 1fr; }
+  .hero-grid, .finance-layout, .risk-layout { grid-template-columns: 1fr; }
   .hero-copy, .hero-system { min-height: 560px; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .roadmap, .operations-grid { grid-template-columns: repeat(2, 1fr); }
   .portfolio-featured { grid-template-columns: 1fr; }
   .portfolio-featured .portfolio-media { min-height: 540px; }
+}
+
+@media (max-width: 980px) {
+  .calculator-shell { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 760px) {
@@ -581,8 +586,14 @@ main > section { position: relative; z-index: 1; }
   .compare-card ul { margin-top: 42px; }
   .services-grid, .portfolio-grid { grid-template-columns: 1fr; }
   .additional-row article { border-right: 0; border-bottom: 1px solid var(--line); }
-  .calculator-form { grid-template-columns: 1fr; }
-  .result-card strong { font-size: 18px; }
+  .calculator-shell { gap: 12px; }
+  .calculator-form, .calculator-results { padding: 20px; }
+  .calculator-form { grid-template-columns: 1fr; gap: 15px; }
+  .field { font-size: 13px; }
+  .field input, .field select { height: 52px; font-size: 16px; }
+  .result-card { min-height: 104px; padding: 16px; }
+  .result-card strong { font-size: clamp(18px, 5.2vw, 22px); overflow-wrap: anywhere; }
+  .projection-chart { height: 260px; margin-top: 18px; }
   .roadmap, .operations-grid { grid-template-columns: 1fr; }
   .roadmap-step { min-height: 250px; }
   .roadmap-arrow { right: 50%; top: auto; bottom: -17px; transform: translateX(50%) rotate(90deg); }
@@ -604,7 +615,9 @@ main > section { position: relative; z-index: 1; }
   .metric-strip { grid-template-columns: 1fr; }
   .metric-strip > div { border-right: 0; border-bottom: 1px solid var(--line) !important; }
   .metric-strip > div:last-child { border-bottom: 0 !important; }
-  .result-grid { grid-template-columns: 1fr; }
+  .result-grid { grid-template-columns: 1fr; gap: 8px; }
+  .calculator-form, .calculator-results { padding: 16px; }
+  .projection-chart { height: 230px; margin-inline: -8px; }
   .formula { align-items: flex-start; flex-direction: column; }
   .chart-head { flex-direction: column; }
   .segmented { border-radius: 16px; }
