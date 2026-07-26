@@ -22,6 +22,17 @@ describe("financial model", () => {
     expect(result.investorPayout).toBe(0);
   });
 
+  it("accepts a custom investor percentage", () => {
+    const result = calculateMonth({
+      ...defaultInvestorInputs,
+      clients: 15,
+      investorShare: 37.5,
+    });
+
+    expect(result.distributableProfit).toBe(105_000);
+    expect(result.investorPayout).toBe(39_375);
+  });
+
   it("grows client count and accumulated payout month by month", () => {
     const projection = createProjection({ ...defaultInvestorInputs, period: 6 });
     expect(projection).toHaveLength(6);

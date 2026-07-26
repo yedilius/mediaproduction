@@ -47,7 +47,7 @@ export type InvestorInputs = {
   taxRate: number;
   reserve: number;
   monthlyClientGrowth: number;
-  investorShare: 40 | 45 | 50;
+  investorShare: number;
   period: 6 | 12 | 36;
 };
 

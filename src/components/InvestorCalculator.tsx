@@ -18,13 +18,13 @@ const schema = z.object({
   taxRate: z.number().min(0).max(100),
   reserve: z.number().min(0),
   monthlyClientGrowth: z.number().int().min(0),
-  investorShare: z.number().refine((value) => [40, 45, 50].includes(value)),
+  investorShare: z.number().min(0).max(100),
   period: z.number().refine((value) => [6, 12, 36].includes(value)),
 });
 
 type FormData = z.infer<typeof schema>;
 
-const fields: Array<{ name: keyof FormData; label: string; suffix?: string }> = [
+const fields: Array<{ name: keyof FormData; label: string; suffix?: string; step?: number }> = [
   { name: "investment", label: "Сумма инвестиций", suffix: "₸" },
   { name: "clients", label: "Количество клиентов" },
   { name: "averageCheck", label: "Средний чек", suffix: "₸" },
@@ -32,6 +32,7 @@ const fields: Array<{ name: keyof FormData; label: string; suffix?: string }> = 
   { name: "taxRate", label: "Налоговая нагрузка", suffix: "%" },
   { name: "reserve", label: "Обязательный резерв", suffix: "₸" },
   { name: "monthlyClientGrowth", label: "Прирост клиентов в месяц" },
+  { name: "investorShare", label: "Процент выплаты инвестору", suffix: "%", step: 0.1 },
 ];
 
 export function InvestorCalculator() {
@@ -65,19 +66,18 @@ export function InvestorCalculator() {
           <label className="field" key={field.name}>
             <span>{field.label}</span>
             <span className="input-wrap">
-              <input type="number" step="1" {...register(field.name, { valueAsNumber: true })} aria-invalid={Boolean(errors[field.name])} />
+              <input
+                type="number"
+                step={field.step ?? 1}
+                min={field.name === "investorShare" ? 0 : undefined}
+                max={field.name === "investorShare" ? 100 : undefined}
+                {...register(field.name, { valueAsNumber: true })}
+                aria-invalid={Boolean(errors[field.name])}
+              />
               {field.suffix && <em>{field.suffix}</em>}
             </span>
           </label>
         ))}
-        <label className="field">
-          <span>Процент выплаты инвестору</span>
-          <select {...register("investorShare", { valueAsNumber: true })}>
-            <option value={40}>40%</option>
-            <option value={45}>45%</option>
-            <option value={50}>50%</option>
-          </select>
-        </label>
         <label className="field">
           <span>Период расчета</span>
           <select {...register("period", { valueAsNumber: true })}>
